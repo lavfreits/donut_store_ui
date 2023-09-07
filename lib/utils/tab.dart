@@ -6,13 +6,17 @@ class MyTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Tab(
-      height: 80,
-      child: Container(
-        decoration: BoxDecoration(
-          color: Colors.grey[200], borderRadius: BorderRadius.circular(12)
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Tab(
+        height: 80,
+        child: Container(
+          padding: EdgeInsets.all(8),
+          decoration: BoxDecoration(
+            color: Colors.grey[200], borderRadius: BorderRadius.circular(12)
+          ),
+          child: Image.asset(iconPath, color: Colors.grey[600],),
         ),
-        child: Image.asset(iconPath, color: Colors.grey[600],),
       ),
     );
   }

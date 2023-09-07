@@ -1,3 +1,4 @@
+import 'package:donut_store_ui/pages/home_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -13,8 +14,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.pink
-      ),useMaterial3: true,
+        primarySwatch: Colors.pink,
+        useMaterial3: true,
       ),
       home: const HomePage(),
     );
