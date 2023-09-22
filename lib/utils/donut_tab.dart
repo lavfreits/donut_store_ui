@@ -1,8 +1,16 @@
 import 'package:flutter/material.dart';
+import '../controllers/item_model.dart';
 import 'tile.dart';
 
 class DonutTab extends StatelessWidget {
-  DonutTab({super.key});
+  final void Function(Item) likePressed;
+  final void Function(Item) addToCartPressed;
+
+  DonutTab({
+    super.key,
+    required this.likePressed,
+    required this.addToCartPressed,
+  });
 
   List donutsOnSale = [
     [
@@ -47,9 +55,30 @@ class DonutTab extends StatelessWidget {
             price: donutsOnSale[index][1],
             color: donutsOnSale[index][2],
             imageName: donutsOnSale[index][3],
+            likePressed: () {
+              Item item = add(index);
+              likePressed(item);
+            },
+            addToCartPressed: () {
+              Item item = add(index);
+              addToCartPressed(item);
+            },
+            icon: Icons.add,
+
           ),
         );
       },
     );
+  }
+
+  Item add(int index) {
+    Item item = Item(
+      name: donutsOnSale[index][0],
+      price: donutsOnSale[index][1],
+      color: donutsOnSale[index][2],
+      image: donutsOnSale[index][3],
+      category: 'Donuts',
+    );
+    return item;
   }
 }

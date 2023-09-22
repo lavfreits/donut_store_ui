@@ -1,8 +1,16 @@
+import 'package:donut_store_ui/utils/tile.dart';
 import 'package:flutter/material.dart';
-import 'tile.dart';
+import '../controllers/item_model.dart'; // Certifique-se de importar a classe Item
 
 class SmoothiesTab extends StatelessWidget {
-  SmoothiesTab({super.key});
+  final void Function(Item) likePressed;
+  final void Function(Item) addToCartPressed;
+
+  SmoothiesTab({
+    super.key,
+    required this.likePressed,
+    required this.addToCartPressed,
+  });
 
   List smoothiesInSale = [
     [
@@ -29,13 +37,12 @@ class SmoothiesTab extends StatelessWidget {
       Colors.red,
       'lib/images/smoothie (1).png',
     ],
-
   ];
 
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
-      itemCount: smoothiesInSale.length ,
+      itemCount: smoothiesInSale.length,
       padding: const EdgeInsets.all(12),
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
@@ -48,9 +55,29 @@ class SmoothiesTab extends StatelessWidget {
             price: smoothiesInSale[index][1],
             color: smoothiesInSale[index][2],
             imageName: smoothiesInSale[index][3],
+            likePressed: () {
+              Item item = add(index);
+              likePressed(item);
+            },
+            addToCartPressed: () {
+              Item item = add(index);
+              addToCartPressed(item);
+            },
+            icon: Icons.add,
           ),
         );
       },
     );
+  }
+
+  Item add(int index) {
+    Item item = Item(
+      name: smoothiesInSale[index][0],
+      price: smoothiesInSale[index][1],
+      color: smoothiesInSale[index][2],
+      image: smoothiesInSale[index][3],
+      category: 'Smoothies',
+    );
+    return item;
   }
 }

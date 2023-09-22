@@ -1,16 +1,29 @@
-# donut_store_ui
+# Donut Store UI
 
-A new Flutter project.
+O Donut Store UI é um aplicativo de exemplo que apresenta uma interface de usuário simples para uma loja de donuts. Este projeto foi desenvolvido em Flutter e usa a biblioteca Provider para gerenciar o estado.
 
-## Getting Started
+## Capturas de Tela
+//todo inseri capturas de tela
+## Recursos
 
-This project is a starting point for a Flutter application.
+- Exibição de donuts, hambúrgueres e smoothies em guias separadas.
+- Adição de itens ao carrinho de compras.
+- Funcionalidade "Curtir" para itens.
 
-A few resources to get you started if this is your first Flutter project:
+## Dependências
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+Este projeto depende das seguintes bibliotecas Flutter:
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- [Provider](https://pub.dev/packages/provider): Usado para gerenciar o estado do carrinho de compras e itens curtidos.
+
+Certifique-se de adicionar essas dependências ao arquivo `pubspec.yaml` do seu projeto.
+
+## Contribuição e Proximos Passos
+
+Sinta-se à vontade para contribuir com este projeto criando problemas (issues) ou enviando solicitações de pull (pull requests). Toda contribuição é bem-vinda!
+
+Meus próximos passos são: 
+- colocar mensagens ao entrar nas paginas do carrinho e dos favoritos que diga que a lista está vazia;
+- persistir o coração vermelho quando o item for curtido;
+- implementar o delete das listas de curtidos e do carrinho;
+- usar o drawer para ir para as outras páginas.

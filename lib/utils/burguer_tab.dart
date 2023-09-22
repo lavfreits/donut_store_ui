@@ -1,8 +1,16 @@
+import 'package:donut_store_ui/utils/tile.dart';
 import 'package:flutter/material.dart';
-import 'tile.dart';
+import '../controllers/item_model.dart'; // Certifique-se de importar a classe Item
 
-class BurguerTab extends StatelessWidget {
-  BurguerTab({super.key});
+class BurgerTab extends StatelessWidget {
+  final void Function(Item) likePressed;
+  final void Function(Item) addToCartPressed;
+
+  BurgerTab({
+    super.key,
+    required this.likePressed,
+    required this.addToCartPressed,
+  });
 
   List burgersOnSale = [
     [
@@ -29,13 +37,12 @@ class BurguerTab extends StatelessWidget {
       Colors.green,
       'lib/images/veggie.png',
     ],
-
   ];
 
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
-      itemCount: burgersOnSale.length ,
+      itemCount: burgersOnSale.length,
       padding: const EdgeInsets.all(12),
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
@@ -48,9 +55,29 @@ class BurguerTab extends StatelessWidget {
             price: burgersOnSale[index][1],
             color: burgersOnSale[index][2],
             imageName: burgersOnSale[index][3],
+            likePressed: () {
+              Item item = add(index);
+              likePressed(item);
+            },
+            addToCartPressed: () {
+              Item item = add(index);
+              addToCartPressed(item);
+            },
+            icon: Icons.add,
           ),
         );
       },
     );
+  }
+
+  Item add(int index) {
+    Item item = Item(
+      name: burgersOnSale[index][0],
+      price: burgersOnSale[index][1],
+      color: burgersOnSale[index][2],
+      image: burgersOnSale[index][3],
+      category: 'Burgers',
+    );
+    return item;
   }
 }
