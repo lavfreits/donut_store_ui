@@ -11,7 +11,7 @@ class CartPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Cart'),
+        title: const Text('Cart'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -43,7 +43,7 @@ class CartPage extends StatelessWidget {
             ),
             Text(
               'Total: \$${cartModel.calculateTotal()}',
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
               ),
@@ -52,7 +52,7 @@ class CartPage extends StatelessWidget {
               onPressed: () {
                 // Implemente a lógica para finalizar a compra, se necessário.
               },
-              child: Text('Checkout'),
+              child: const Text('Checkout'),
             ),
           ],
         ),
