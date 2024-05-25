@@ -3,7 +3,6 @@
 O Donut Store UI é um aplicativo de exemplo que apresenta uma interface de usuário simples para uma loja de donuts. Este projeto foi desenvolvido em Flutter e usa a biblioteca Provider para gerenciar o estado.
 
 ## Capturas de Tela
-//todo inseri capturas de tela
 ## Recursos
 
 - Exibição de donuts, hambúrgueres e smoothies em guias separadas.
