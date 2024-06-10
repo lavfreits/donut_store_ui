@@ -1,12 +1,12 @@
 # Donut Store UI
 
-O Donut Store UI é um aplicativo de exemplo que apresenta uma interface de usuário simples para uma loja de donuts. Este projeto foi desenvolvido em Flutter, usa a biblioteca Provider para gerenciar o estado e foi adicionado para fins de aprendizado a integração com o Firestore para salvar os favoritos.
+O Donut Store UI é um aplicativo de exemplo que apresenta uma interface de usuário simples para uma loja de donuts. Este projeto foi desenvolvido em Flutter e usa a biblioteca Provider para gerenciar o estado.
 
 ## Capturas de Tela
-<img src="home.png" alt="Home page" width="360" height=3120">
-<img src="favorites_page.png" alt="Favorites page" width="360" height=3120">
-<img src="cart.png" alt="Cart page" width="360" height=3120">
-<img src="products_list_page.png" alt="Products List page" width="360" height=3120">
+<img src="home.png" alt="Home page" width="360" height=790">
+<img src="favorites_page.png" alt="Favorites page" width="360" height=790">
+<img src="cart.png" alt="Cart page" width="360" height=790">
+<img src="products_list_page.png" alt="Products List page" width="360" height=790">
 
 
 
@@ -36,3 +36,9 @@ Para usar este projeto, siga estas etapas:
 2. Execute `flutter pub get` para instalar as dependências.
 3. Configure o Firebase no seu projeto e adicione as credenciais ao seu arquivo `google-services.json` ou `Info.plist`.
 4. Execute o aplicativo em seu emulador ou dispositivo.
+
+
+## Proximos Passos
+
+Meus próximos passos são:
+- explorar gerenciar estados com getx e mobx.
