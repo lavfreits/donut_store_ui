@@ -12,4 +12,24 @@ class Item {
     required this.price,
     required this.category,
   });
+
+  factory Item.fromJson(Map<String, dynamic> json) {
+    return Item(
+      color: json['color'],
+      image: json['image'],
+      name: json['name'],
+      price: json['price'],
+      category: json['category'],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'color': color,
+      'image': image,
+      'name': name,
+      'price': price,
+      'category': category,
+    };
+  }
 }

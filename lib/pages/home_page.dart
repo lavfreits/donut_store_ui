@@ -6,9 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../controllers/cart_model.dart';
-import '../controllers/favorites_model.dart';
+import '../controllers/donut_provider.dart';
+import '../donut_model.dart';
 import '../utils/donut_tab.dart';
 import 'cart_page.dart';
+import 'product_list_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -19,23 +21,21 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   late CartModel cartModel;
-  late LikedModel likedModel;
+  // late LikedModel likedModel;
+  late DonutProvider donutProvider;
+
   List<Widget> myTabs = [
     const MyTab(iconPath: 'lib/images/donut.png'),
     const MyTab(iconPath: "lib/images/burguer.png"),
     const MyTab(iconPath: 'lib/images/smoothie.png'),
   ];
 
-  // @override
-  // void initState() {
-  //   cartModel = Provider.of<CartModel>(context);
-  //   likedModel = Provider.of<LikedModel>(context);
-  //   super.initState();
-  // }
   @override
   void didChangeDependencies() {
     cartModel = Provider.of<CartModel>(context);
-    likedModel = Provider.of<LikedModel>(context);
+    // likedModel = Provider.of<LikedModel>(context);
+    donutProvider = Provider.of<DonutProvider>(context);
+
     super.didChangeDependencies();
   }
 
@@ -44,20 +44,53 @@ class _HomePageState extends State<HomePage> {
     return DefaultTabController(
       length: myTabs.length,
       child: Scaffold(
+        drawer: Drawer(
+          child: Column(
+            children: [
+              ListTile(
+                title: const Text('Home'),
+                onTap: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+              ListTile(
+                title: const Text('Favorites'),
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const FavoritesPage(),
+                    ),
+                  );
+                },
+              ),
+              ListTile(
+                title: const Text('Cart'),
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => CartPage(
+                        cartModel: cartModel,
+                      ),
+                    ),
+                  );
+                },
+              ),
+              ListTile(
+                title: const Text('Product List'),
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const ProductListPage(),
+                    ),
+                  );
+                },
+              ),
+            ],
+          ),
+        ),
         appBar: AppBar(
           backgroundColor: Colors.transparent,
           elevation: 0,
-          leading: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                Icons.menu,
-                color: Colors.grey,
-                size: 36,
-              ),
-            ),
-          ),
           actions: [
             IconButton(
               onPressed: () {
@@ -79,7 +112,7 @@ class _HomePageState extends State<HomePage> {
               onPressed: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => FavoritesPage(likedModel: likedModel),
+                    builder: (context) => const FavoritesPage(),
                   ),
                 );
               },
@@ -103,7 +136,10 @@ class _HomePageState extends State<HomePage> {
                   ),
                   Text(
                     '...',
-                    style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                      fontSize: 32,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ],
               ),
@@ -115,7 +151,12 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   DonutTab(
                     likePressed: (item) {
-                      likedModel.addItemToLiked(item);
+                      donutProvider.addFavorite(Donut(
+                        name: item.name,
+                        price: double.parse(item.price),
+                        color: item.color,
+                        image: item.image,
+                      ));
                     },
                     addToCartPressed: (item) {
                       cartModel.addItemToCart(item);
@@ -123,7 +164,12 @@ class _HomePageState extends State<HomePage> {
                   ),
                   BurgerTab(
                     likePressed: (item) {
-                      likedModel.addItemToLiked(item);
+                      donutProvider.addFavorite(Donut(
+                        name: item.name,
+                        price: double.parse(item.price),
+                        color: item.color,
+                        image: item.image,
+                      ));
                     },
                     addToCartPressed: (item) {
                       cartModel.addItemToCart(item);
@@ -131,7 +177,12 @@ class _HomePageState extends State<HomePage> {
                   ),
                   SmoothiesTab(
                     likePressed: (item) {
-                      likedModel.addItemToLiked(item);
+                      donutProvider.addFavorite(Donut(
+                        name: item.name,
+                        price: double.parse(item.price),
+                        color: item.color,
+                        image: item.image,
+                      ));
                     },
                     addToCartPressed: (item) {
                       cartModel.addItemToCart(item);

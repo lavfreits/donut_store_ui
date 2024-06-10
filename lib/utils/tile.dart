@@ -61,7 +61,7 @@ class _TileState extends State<Tile> {
             ),
             Padding(
               padding:
-              const EdgeInsets.symmetric(horizontal: 36.0, vertical: 16),
+                  const EdgeInsets.symmetric(horizontal: 36.0, vertical: 16),
               child: Image.asset(widget.imageName),
             ),
             Text(

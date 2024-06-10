@@ -1,12 +1,29 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:donut_store_ui/controllers/donut_provider.dart';
 import 'package:donut_store_ui/pages/home_page.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'controllers/cart_model.dart';
-import 'controllers/favorites_model.dart';
+import 'firebase_options.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
   runApp(const MyApp());
+
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+  firestore.collection('favorites').snapshots().listen((event) {
+    print('Favorites: ${event.docs}');
+  });
+
+  firestore.settings = const Settings(persistenceEnabled: true);
 }
 
 class MyApp extends StatelessWidget {
@@ -17,7 +34,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => CartModel()),
-        ChangeNotifierProvider(create: (context) => LikedModel()),
+        ChangeNotifierProvider(create: (context) => DonutProvider()),
       ],
       child: MaterialApp(
         title: 'Donut Store',

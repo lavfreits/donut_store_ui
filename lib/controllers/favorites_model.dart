@@ -16,13 +16,4 @@ class LikedModel extends ChangeNotifier {
     _likedItems.remove(item);
     notifyListeners();
   }
-
-  String calculateTotal() {
-    double totalPrice = 0;
-    for (int i = 0; i < _likedItems.length; i++) {
-      totalPrice += double.parse(_likedItems[i]
-          .price); // todo 1 é substituivel pelo numero da coluna q ta o preco
-    }
-    return totalPrice.toStringAsFixed(2);
-  }
 }
