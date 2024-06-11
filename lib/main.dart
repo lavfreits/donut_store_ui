@@ -5,7 +5,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'controllers/cart_model.dart';
+import 'controllers/cart_store.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async {
@@ -33,8 +33,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => CartModel()),
-        ChangeNotifierProvider(create: (context) => DonutProvider()),
+        Provider(create: (context) => DonutStore()),
+        Provider(create: (context) => CartStore()),
       ],
       child: MaterialApp(
         title: 'Donut Store',

@@ -5,7 +5,7 @@ import 'package:donut_store_ui/utils/tab.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../controllers/cart_model.dart';
+import '../controllers/cart_store.dart';
 import '../controllers/donut_provider.dart';
 import '../donut_model.dart';
 import '../utils/donut_tab.dart';
@@ -20,9 +20,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  late CartModel cartModel;
-  // late LikedModel likedModel;
-  late DonutProvider donutProvider;
+  late CartStore cartStore;
+  late DonutStore donutStore;
 
   List<Widget> myTabs = [
     const MyTab(iconPath: 'lib/images/donut.png'),
@@ -32,9 +31,8 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void didChangeDependencies() {
-    cartModel = Provider.of<CartModel>(context);
-    // likedModel = Provider.of<LikedModel>(context);
-    donutProvider = Provider.of<DonutProvider>(context);
+    cartStore = Provider.of<CartStore>(context);
+    donutStore = Provider.of<DonutStore>(context);
 
     super.didChangeDependencies();
   }
@@ -58,7 +56,9 @@ class _HomePageState extends State<HomePage> {
                 onTap: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (context) => const FavoritesPage(),
+                      builder: (context) => FavoritesPage(
+                        donutStore: donutStore,
+                      ),
                     ),
                   );
                 },
@@ -69,7 +69,7 @@ class _HomePageState extends State<HomePage> {
                   Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (context) => CartPage(
-                        cartModel: cartModel,
+                        cartStore: cartStore,
                       ),
                     ),
                   );
@@ -97,7 +97,7 @@ class _HomePageState extends State<HomePage> {
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (context) => CartPage(
-                      cartModel: cartModel,
+                      cartStore: cartStore,
                     ),
                   ),
                 );
@@ -112,7 +112,9 @@ class _HomePageState extends State<HomePage> {
               onPressed: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => const FavoritesPage(),
+                    builder: (context) => FavoritesPage(
+                      donutStore: donutStore,
+                    ),
                   ),
                 );
               },
@@ -151,7 +153,7 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   DonutTab(
                     likePressed: (item) {
-                      donutProvider.addFavorite(Donut(
+                      donutStore.addFavorite(Donut(
                         name: item.name,
                         price: double.parse(item.price),
                         color: item.color,
@@ -159,12 +161,12 @@ class _HomePageState extends State<HomePage> {
                       ));
                     },
                     addToCartPressed: (item) {
-                      cartModel.addItemToCart(item);
+                      cartStore.addItemToCart(item);
                     },
                   ),
                   BurgerTab(
                     likePressed: (item) {
-                      donutProvider.addFavorite(Donut(
+                      donutStore.addFavorite(Donut(
                         name: item.name,
                         price: double.parse(item.price),
                         color: item.color,
@@ -172,12 +174,12 @@ class _HomePageState extends State<HomePage> {
                       ));
                     },
                     addToCartPressed: (item) {
-                      cartModel.addItemToCart(item);
+                      cartStore.addItemToCart(item);
                     },
                   ),
                   SmoothiesTab(
                     likePressed: (item) {
-                      donutProvider.addFavorite(Donut(
+                      donutStore.addFavorite(Donut(
                         name: item.name,
                         price: double.parse(item.price),
                         color: item.color,
@@ -185,7 +187,7 @@ class _HomePageState extends State<HomePage> {
                       ));
                     },
                     addToCartPressed: (item) {
-                      cartModel.addItemToCart(item);
+                      cartStore.addItemToCart(item);
                     },
                   ),
                 ],

@@ -39,6 +39,10 @@ dependencies:
   cloud_firestore: ^5.0.0
   firebase_core: ^3.0.0
   uuid: ^4.4.0
+  mobx: ^2.3.3+2
+  flutter_mobx: ^2.2.1+1
+  build_runner: ^2.4.11
+  mobx_codegen: ^2.6.1
 
 
 dev_dependencies:

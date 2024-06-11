@@ -1,22 +1,29 @@
-import 'package:flutter/material.dart';
+import 'package:mobx/mobx.dart';
 
 import 'item_model.dart';
 
-class CartModel extends ChangeNotifier {
-  final List<Item> _cartItems = [];
+part 'cart_store.g.dart';
 
-  get cartItems => _cartItems;
+class CartStore = _CartStore with _$CartStore;
 
+abstract class _CartStore with Store {
+  @observable
+  List<Item> _cartItems = ObservableList<Item>();
+
+  @computed
+  List<Item> get cartItems => _cartItems;
+
+  @action
   void addItemToCart(Item item) {
     _cartItems.add(item);
-    notifyListeners();
   }
 
+  @action
   void removeItemFromCart(Item item) {
     _cartItems.remove(item);
-    notifyListeners();
   }
 
+  @action
   String calculateTotal() {
     double totalPrice = 0;
     for (int i = 0; i < _cartItems.length; i++) {
