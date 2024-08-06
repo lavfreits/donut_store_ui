@@ -3,6 +3,7 @@
 O Donut Store UI é um aplicativo de exemplo que apresenta uma interface de usuário simples para uma loja de donuts. Este projeto foi desenvolvido em Flutter e usa a biblioteca Provider para gerenciar o estado e Firebase Cloud Firestore para armazenar dados como items favoritados.
 
 ## Capturas de Tela
+![Donut Store UI](https://raw.githubusercontent.com/lavfreits/donut_store_ui/master/screen_recording.gif)
 
 
 ## Recursos
