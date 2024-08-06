@@ -13,7 +13,7 @@ class DonutTab extends StatelessWidget {
     required this.addToCartPressed,
   });
 
-  List donutsOnSale = [
+  final List donutsOnSale = [
     [
       'IceCream',
       '36',

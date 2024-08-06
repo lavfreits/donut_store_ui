@@ -1,16 +1,15 @@
-import 'package:donut_store_ui/pages/favorites_page.dart';
-import 'package:donut_store_ui/utils/burguer_tab.dart';
-import 'package:donut_store_ui/utils/smoothie_tab.dart';
-import 'package:donut_store_ui/utils/tab.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:get/get.dart';
 
-import '../controllers/cart_model.dart';
-import '../controllers/donut_provider.dart';
+import '../components/burguer_tab.dart';
+import '../components/donut_tab.dart';
+import '../components/smoothie_tab.dart';
+import '../components/tab.dart';
+import '../controllers/cart_controller.dart';
+import '../controllers/donut_controller.dart';
 import '../donut_model.dart';
-import '../utils/donut_tab.dart';
 import 'cart_page.dart';
-import 'product_list_page.dart';
+import 'favorites_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -20,9 +19,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  late CartModel cartModel;
-  // late LikedModel likedModel;
-  late DonutProvider donutProvider;
+  late CartController cartController;
+  late DonutController donutController;
 
   List<Widget> myTabs = [
     const MyTab(iconPath: 'lib/images/donut.png'),
@@ -32,9 +30,8 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void didChangeDependencies() {
-    cartModel = Provider.of<CartModel>(context);
-    // likedModel = Provider.of<LikedModel>(context);
-    donutProvider = Provider.of<DonutProvider>(context);
+    cartController = Get.put(CartController());
+    donutController = Get.put(DonutController());
 
     super.didChangeDependencies();
   }
@@ -47,44 +44,43 @@ class _HomePageState extends State<HomePage> {
         drawer: Drawer(
           child: Column(
             children: [
+              const SizedBox(
+                height: 100,
+                child: DrawerHeader(
+                  decoration: BoxDecoration(
+                    color: Colors.transparent,
+                  ),
+                  child: Text(
+                    'Menu',
+                    style: TextStyle(fontSize: 24),
+                  ),
+                ),
+              ),
               ListTile(
                 title: const Text('Home'),
                 onTap: () {
-                  Navigator.of(context).pop();
+                  Get.back();
                 },
               ),
               ListTile(
                 title: const Text('Favorites'),
                 onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => const FavoritesPage(),
-                    ),
-                  );
+                  Get.to(() => const FavoritesPage(),
+                      transition: Transition.cupertino);
                 },
               ),
               ListTile(
                 title: const Text('Cart'),
                 onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => CartPage(
-                        cartModel: cartModel,
-                      ),
-                    ),
-                  );
+                  Get.to(() => const CartPage());
                 },
               ),
-              ListTile(
-                title: const Text('Product List'),
-                onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => const ProductListPage(),
-                    ),
-                  );
-                },
-              ),
+              // ListTile(
+              //   title: const Text('Product List'),
+              //   onTap: () {
+              //     Get.to(() => const ProductListPage());
+              //   },
+              // ),
             ],
           ),
         ),
@@ -94,13 +90,7 @@ class _HomePageState extends State<HomePage> {
           actions: [
             IconButton(
               onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => CartPage(
-                      cartModel: cartModel,
-                    ),
-                  ),
-                );
+                Get.to(() => const CartPage());
               },
               icon: Icon(
                 Icons.shopping_cart,
@@ -110,11 +100,7 @@ class _HomePageState extends State<HomePage> {
             ),
             IconButton(
               onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => const FavoritesPage(),
-                  ),
-                );
+                Get.to(() => const FavoritesPage());
               },
               icon: Icon(
                 Icons.favorite,
@@ -151,7 +137,7 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   DonutTab(
                     likePressed: (item) {
-                      donutProvider.addFavorite(Donut(
+                      donutController.addFavorite(Donut(
                         name: item.name,
                         price: double.parse(item.price),
                         color: item.color,
@@ -159,12 +145,17 @@ class _HomePageState extends State<HomePage> {
                       ));
                     },
                     addToCartPressed: (item) {
-                      cartModel.addItemToCart(item);
+                      cartController.addItemToCart(item);
+                      Get.showSnackbar(GetSnackBar(
+                        title: 'Item added!',
+                        message: 'Item: ${item.name} added to the the cart',
+                        duration: const Duration(seconds: 2),
+                      ));
                     },
                   ),
                   BurgerTab(
                     likePressed: (item) {
-                      donutProvider.addFavorite(Donut(
+                      donutController.addFavorite(Donut(
                         name: item.name,
                         price: double.parse(item.price),
                         color: item.color,
@@ -172,12 +163,17 @@ class _HomePageState extends State<HomePage> {
                       ));
                     },
                     addToCartPressed: (item) {
-                      cartModel.addItemToCart(item);
+                      cartController.addItemToCart(item);
+                      Get.showSnackbar(GetSnackBar(
+                        title: 'Item added!',
+                        message: 'Item: ${item.name} added to the the cart',
+                        duration: const Duration(seconds: 2),
+                      ));
                     },
                   ),
                   SmoothiesTab(
                     likePressed: (item) {
-                      donutProvider.addFavorite(Donut(
+                      donutController.addFavorite(Donut(
                         name: item.name,
                         price: double.parse(item.price),
                         color: item.color,
@@ -185,7 +181,12 @@ class _HomePageState extends State<HomePage> {
                       ));
                     },
                     addToCartPressed: (item) {
-                      cartModel.addItemToCart(item);
+                      cartController.addItemToCart(item);
+                      Get.showSnackbar(GetSnackBar(
+                        title: 'Item added!',
+                        message: 'Item: ${item.name} added to the the cart',
+                        duration: const Duration(seconds: 2),
+                      ));
                     },
                   ),
                 ],

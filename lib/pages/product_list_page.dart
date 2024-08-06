@@ -32,20 +32,27 @@ class _ProductListPageState extends State<ProductListPage> {
                   return const Center(child: CircularProgressIndicator());
                 }
 
-                final products = snapshot.data!.docs;
+                if (snapshot.hasData) {
+                  final products = snapshot.data!.docs;
+                  if (products.isEmpty) {
+                    return const Center(child: Text('No products available'));
+                  }
 
-                return ListView.builder(
-                  itemCount: products.length,
-                  itemBuilder: (context, index) {
-                    final product = products[index];
-                    final productData = product.data() as Map<String, dynamic>;
-                    return ListTile(
-                      leading: Image.asset(productData['image']),
-                      title: Text(productData['name']),
-                      subtitle: Text('\$${productData['price']}'),
-                    );
-                  },
-                );
+                  return ListView.builder(
+                    itemCount: products.length,
+                    itemBuilder: (context, index) {
+                      final product = products[index];
+                      final productData =
+                          product.data() as Map<String, dynamic>;
+                      return ListTile(
+                        leading: Image.asset(productData['image']),
+                        title: Text(productData['name']),
+                        subtitle: Text('\$${productData['price']}'),
+                      );
+                    },
+                  );
+                }
+                return const Center(child: Text('No products available'));
               },
             ),
           ),

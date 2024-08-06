@@ -13,9 +13,19 @@ class MyTab extends StatelessWidget {
         child: Container(
           padding: const EdgeInsets.all(8),
           decoration: BoxDecoration(
-            color: Colors.grey[200], borderRadius: BorderRadius.circular(12)
+            color: Colors.grey[200],
+            borderRadius: BorderRadius.circular(12),
           ),
-          child: Image.asset(iconPath, color: Colors.grey[600],),
+          child: Image.asset(
+            iconPath,
+            color: Colors.grey[600],
+            errorBuilder: (_, __, ___) {
+              return const Icon(
+                Icons.error,
+                color: Colors.grey,
+              );
+            },
+          ),
         ),
       ),
     );

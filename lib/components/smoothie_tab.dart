@@ -1,6 +1,7 @@
-import 'package:donut_store_ui/utils/tile.dart';
 import 'package:flutter/material.dart';
-import '../controllers/item_model.dart'; // Certifique-se de importar a classe Item
+
+import '../components/tile.dart';
+import '../controllers/item_model.dart';
 
 class SmoothiesTab extends StatelessWidget {
   final void Function(Item) likePressed;
@@ -12,7 +13,7 @@ class SmoothiesTab extends StatelessWidget {
     required this.addToCartPressed,
   });
 
-  List smoothiesInSale = [
+  final List smoothiesInSale = [
     [
       'Berry Bliss Smoothie',
       '32',

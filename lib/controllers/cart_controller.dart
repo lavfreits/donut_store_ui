@@ -1,20 +1,23 @@
-import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import 'item_model.dart';
 
-class CartModel extends ChangeNotifier {
-  final List<Item> _cartItems = [];
+class CartController extends GetxController {
+  final _cartItems = <Item>[].obs;
 
   get cartItems => _cartItems;
 
+  var totalPrice = 0.0.obs;
+
   void addItemToCart(Item item) {
     _cartItems.add(item);
-    notifyListeners();
+
+    totalPrice.value = double.parse(calculateTotal());
   }
 
   void removeItemFromCart(Item item) {
     _cartItems.remove(item);
-    notifyListeners();
+    totalPrice.value = double.parse(calculateTotal());
   }
 
   String calculateTotal() {

@@ -13,7 +13,7 @@ class Donut {
     required this.image,
   });
 
-  factory Donut.fromFirestore(Map<String, dynamic> data) {
+  factory Donut.fromJson(Map<String, dynamic> data) {
     return Donut(
       name: data['name'],
       price: data['price'],
@@ -21,7 +21,7 @@ class Donut {
     );
   }
 
-  Map<String, dynamic> toFirestore() {
+  Map<String, dynamic> toJson() {
     return {
       'name': name,
       'price': price,

@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import '../controllers/tile_controller.dart';
 
 class Tile extends StatefulWidget {
   final String flavor;
@@ -25,7 +28,13 @@ class Tile extends StatefulWidget {
 }
 
 class _TileState extends State<Tile> {
-  bool isLiked = false;
+  late TileController controller;
+
+  @override
+  void initState() {
+    super.initState();
+    controller = Get.put(TileController(), tag: widget.flavor);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,6 +51,7 @@ class _TileState extends State<Tile> {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Container(
+                  padding: const EdgeInsets.all(8),
                   decoration: BoxDecoration(
                     borderRadius: const BorderRadius.only(
                       bottomLeft: Radius.circular(12),
@@ -61,13 +71,17 @@ class _TileState extends State<Tile> {
             ),
             Padding(
               padding:
-                  const EdgeInsets.symmetric(horizontal: 36.0, vertical: 16),
-              child: Image.asset(widget.imageName),
+                  const EdgeInsets.symmetric(horizontal: 20.0, vertical: 16),
+              child: Image.asset(
+                widget.imageName,
+                height: 85,
+              ),
             ),
             Text(
               widget.flavor,
               textAlign: TextAlign.center,
               maxLines: 1,
+              overflow: TextOverflow.ellipsis,
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 16,
@@ -82,7 +96,7 @@ class _TileState extends State<Tile> {
                 color: Colors.grey[600],
               ),
             ),
-            const SizedBox(height: 12),
+            const SizedBox(height: 6),
             Padding(
               padding: const EdgeInsets.all(12.0),
               child: Row(
@@ -90,14 +104,18 @@ class _TileState extends State<Tile> {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      setState(() {
-                        isLiked = !isLiked;
-                      });
+                      controller.toggleLike();
                       widget.likePressed();
                     },
-                    child: Icon(
-                      isLiked ? Icons.favorite : Icons.favorite_border,
-                      color: isLiked ? Colors.pink[400] : Colors.grey[800],
+                    child: Obx(
+                      () => Icon(
+                        controller.isLiked
+                            ? Icons.favorite
+                            : Icons.favorite_border,
+                        color: controller.isLiked
+                            ? Colors.pink[400]
+                            : Colors.grey[800],
+                      ),
                     ),
                   ),
                   GestureDetector(

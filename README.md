@@ -4,10 +4,6 @@ O Donut Store UI é um aplicativo de exemplo que apresenta uma interface de usu�
 
 ## Capturas de Tela
 
-<img src="home.png" alt="Home page" width="360" height="790">
-<img src="favorites_page.png" alt="Favorites page" width="360" height="790">
-<img src="cart.png" alt="Cart page" width="360" height="790">
-<img src="products_list_page.png" alt="Products List page" width="360" height="790">
 
 ## Recursos
 
@@ -50,7 +46,3 @@ Há uma branch alternativa chamada managing_with_mobx que utiliza MobX para gere
 git checkout managing_with_mobx
 ```
 
-## Proximos Passos
-
-Meus próximos passos são:
-- explorar gerenciar estados com getx.
